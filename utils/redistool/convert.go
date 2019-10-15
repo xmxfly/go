@@ -15,7 +15,7 @@ import (
 	"strings"
 	"time"
 
-	utils "github.com/wubo0067/calmwu-go/utils"
+	utils "github.com/xmxfly/go/utils"
 )
 
 var (
