@@ -38,6 +38,9 @@ func RandomBytes(size int) ([]byte, error) {
 
 // RandomRangeIn  trying to generate 8 digit numbers, the range would be (10000000, 99999999)
 func RandomRangeIn(low, hi int) int {
+	once.Do(func() {
+		rand.Seed(time.Now().UTC().UnixNano())
+	})
 	return low + rand.Intn(hi-low)
 }
 
