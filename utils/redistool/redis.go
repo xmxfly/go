@@ -15,7 +15,7 @@ import (
 	"time"
 
 	"github.com/go-redis/redis"
-	utils "github.com/wubo0067/calmwu-go/utils"
+	utils "github.com/xmxfly/go/utils"
 )
 
 type RedisMgr struct {
