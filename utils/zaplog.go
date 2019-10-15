@@ -36,6 +36,10 @@ func ShortCallerWithClassFunctionEncoder(caller zapcore.EntryCaller, enc zapcore
 	enc.AppendString(path)
 }
 
+func timeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+	enc.AppendString(t.Format("2019-01-02 15:04:05.000"))
+}
+
 // logFullName: dir/dir/dir/test.log
 // maxSize: megabytes, default = 100
 // maxAge: 多少天之后变为old file
@@ -72,8 +76,8 @@ func CreateZapLog(logFullName string, maxSize int, maxAge int, maxBackups int, c
 		TimeKey:        "T",
 		CallerKey:      "C",
 		StacktraceKey:  "S",
-		LineEnding:     "\n",
-		EncodeTime:     zapcore.ISO8601TimeEncoder,
+		LineEnding:     zapcore.DefaultLineEnding,,
+		EncodeTime:     timeEncoder,
 		EncodeLevel:    zapcore.LowercaseLevelEncoder,
 		EncodeDuration: zapcore.SecondsDurationEncoder,
 		EncodeCaller:   zapcore.ShortCallerEncoder, //ShortCallerWithClassFunctionEncoder
