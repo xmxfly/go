@@ -92,7 +92,8 @@ func CreateZapLog(logFullName string, maxSize int, maxAge int, maxBackups int, c
 }
 
 func InitDefaultZapLog(logFullName string, logLevel zapcore.Level) {
-	ZLog = CreateZapLog(logFullName, 100, 7, 7, true, logLevel)
+	//maxBackups:14 one day max 2
+	ZLog = CreateZapLog(logFullName, 100, 7, 14, true, logLevel)
 }
 
 func NewSimpleLog(out io.Writer) *log.Logger {
