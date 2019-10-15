@@ -37,6 +37,7 @@ func ShortCallerWithClassFunctionEncoder(caller zapcore.EntryCaller, enc zapcore
 	enc.AppendString(path)
 }
 
+// 时间编码函数
 func timeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 	enc.AppendString(t.Format("2019-01-02 15:04:05.000"))
 }
