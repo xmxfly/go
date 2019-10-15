@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"time"
 
-	utils "github.com/wubo0067/calmwu-go/utils"
+	utils "github.com/xmxfly/go/utils"
 
 	"github.com/go-redis/redis"
 	uuid "github.com/satori/go.uuid"
