@@ -39,7 +39,7 @@ func ShortCallerWithClassFunctionEncoder(caller zapcore.EntryCaller, enc zapcore
 
 // 时间编码函数
 func timeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
-	enc.AppendString(t.Format("2019-01-02 15:04:05.000"))
+	enc.AppendString(t.Format("2006-01-02 15:04:05.000"))
 }
 
 // logFullName: dir/dir/dir/test.log
