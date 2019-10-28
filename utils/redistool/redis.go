@@ -71,7 +71,7 @@ func (rm *RedisMgr) Start() error {
 			PoolSize:     rm.sessionCount,
 			MinIdleConns: rm.sessionCount,
 			IdleTimeout:  -1,
-                        DB:           10,
+			DB:           10,
 		})
 		rm.redisCmdable = rm.redisClusterClient
 	} else {
@@ -85,7 +85,7 @@ func (rm *RedisMgr) Start() error {
 			PoolSize:     rm.sessionCount,
 			MinIdleConns: rm.sessionCount,
 			IdleTimeout:  -1,
-                        DB:           10,
+			DB:           10,
 		})
 		rm.redisCmdable = rm.redisClient
 	}
