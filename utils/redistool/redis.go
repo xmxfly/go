@@ -20,6 +20,7 @@ import (
 
 type RedisMgr struct {
 	redisSvrAddrs      []string
+	DB                 int
 	isCluster          bool
 	sessionCount       int
 	password           string
@@ -35,12 +36,13 @@ var (
 	once sync.Once
 )
 
-func NewRedisMgr(redisSvrAddrs []string, sessionCount int, isCluster bool, password string) *RedisMgr {
+func NewRedisMgr(redisSvrAddrs []string, db int, sessionCount int, isCluster bool, password string) *RedisMgr {
 	redisMgr := new(RedisMgr)
 	redisMgr.redisSvrAddrs = redisSvrAddrs
 	redisMgr.sessionCount = sessionCount
 	redisMgr.isCluster = isCluster
 	redisMgr.password = password
+	redisMgr.DB = db
 	redisMgr.redisCmdChan = make(chan *RedisCommandData, 10240)
 	redisMgr.redisExitChan = make(chan struct{})
 	return redisMgr
@@ -84,7 +86,7 @@ func (rm *RedisMgr) Start() error {
 			PoolSize:     rm.sessionCount,
 			MinIdleConns: rm.sessionCount,
 			IdleTimeout:  -1,
-			DB:           10,
+			DB:           rm.DB,
 		})
 		rm.redisCmdable = rm.redisClient
 	}
