@@ -230,8 +230,7 @@ L:
 				case REDIS_ZINCRBY:
 					// 当 key 不存在，或 member 不是 key 的成员时，相当于zadd
 					val, err := rm.redisCmdable.ZIncrBy(redisCmdData.key, redisCmdData.value.(float64), redisCmdData.fieldKey).Result()
-					//utils.ZLog.Debugf("ZIncrBy key[%s] increment[%v] memberKey[%s] val:%v", redisCmdData.key, redisCmdData.value,
-						redisCmdData.fieldKey, val)
+					//utils.ZLog.Debugf("ZIncrBy key[%s] increment[%v] memberKey[%s] val:%v", redisCmdData.key, redisCmdData.value, redisCmdData.fieldKey, val)
 					if err != nil {
 						redisCmdData.replyChan <- &RedisResultS{Ok: false, Result: err}
 					} else {
