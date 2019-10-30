@@ -161,7 +161,7 @@ L:
 					}
 				case REDIS_DEL:
 					res, err := rm.redisCmdable.Del(redisCmdData.key).Result()
-					utils.ZLog.Debugf("Del key[%s] res[%d]", redisCmdData.key, res)
+					//utils.ZLog.Debugf("Del key[%s] res[%d]", redisCmdData.key, res)
 					if err != nil {
 						redisCmdData.replyChan <- &RedisResultS{Ok: false, Result: err}
 					} else {
@@ -190,7 +190,7 @@ L:
 				case REDIS_HMGET:
 				case REDIS_HMSET:
 					res, err := rm.redisCmdable.HMSet(redisCmdData.key, redisCmdData.value.(map[string]interface{})).Result()
-					utils.ZLog.Debugf("HMSET key[%s] res:%v", redisCmdData.key, res)
+					//utils.ZLog.Debugf("HMSET key[%s] res:%v", redisCmdData.key, res)
 					if err == nil {
 						// set成功
 						redisCmdData.replyChan <- &RedisResultS{Ok: true, Result: res}
@@ -230,7 +230,7 @@ L:
 				case REDIS_ZINCRBY:
 					// 当 key 不存在，或 member 不是 key 的成员时，相当于zadd
 					val, err := rm.redisCmdable.ZIncrBy(redisCmdData.key, redisCmdData.value.(float64), redisCmdData.fieldKey).Result()
-					utils.ZLog.Debugf("ZIncrBy key[%s] increment[%v] memberKey[%s] val:%v", redisCmdData.key, redisCmdData.value,
+					//utils.ZLog.Debugf("ZIncrBy key[%s] increment[%v] memberKey[%s] val:%v", redisCmdData.key, redisCmdData.value,
 						redisCmdData.fieldKey, val)
 					if err != nil {
 						redisCmdData.replyChan <- &RedisResultS{Ok: false, Result: err}
@@ -239,7 +239,7 @@ L:
 					}
 				case REDIS_EXPIRE:
 					res, err := rm.redisCmdable.Expire(redisCmdData.key, redisCmdData.value.(time.Duration)).Result()
-					utils.ZLog.Debugf("Expire key[%s] expiration:%v", redisCmdData.key, redisCmdData.value)
+					//utils.ZLog.Debugf("Expire key[%s] expiration:%v", redisCmdData.key, redisCmdData.value)
 					if err != nil {
 						redisCmdData.replyChan <- &RedisResultS{Ok: false, Result: err}
 					} else {
@@ -259,7 +259,7 @@ L:
 					scanRes.keys, scanRes.cursor, err = rm.redisCmdable.Scan(redisCmdData.args[0].(uint64),
 						redisCmdData.args[1].(string),
 						redisCmdData.args[2].(int64)).Result()
-					utils.ZLog.Debugf("Scan keycount[%d] cursor[%d]", len(scanRes.keys), scanRes.cursor)
+					//utils.ZLog.Debugf("Scan keycount[%d] cursor[%d]", len(scanRes.keys), scanRes.cursor)
 					if err != nil {
 						redisCmdData.replyChan <- &RedisResultS{Ok: false, Result: err}
 					} else {
@@ -273,7 +273,7 @@ L:
 						redisCmdData.args[1].(uint64),
 						redisCmdData.args[2].(string),
 						redisCmdData.args[3].(int64)).Result()
-					utils.ZLog.Debugf("Scan keycount[%d] cursor[%d] err:%v", len(scanRes.keys), scanRes.cursor, err)
+					//utils.ZLog.Debugf("Scan keycount[%d] cursor[%d] err:%v", len(scanRes.keys), scanRes.cursor, err)
 					if err != nil {
 						redisCmdData.replyChan <- &RedisResultS{Ok: false, Result: err}
 					} else {
@@ -281,7 +281,7 @@ L:
 					}
 				case REDIS_SADD:
 					res, err := rm.redisCmdable.SAdd(redisCmdData.key, redisCmdData.args...).Result()
-					utils.ZLog.Debugf("SADD key[%s] res:%d", redisCmdData.key, res)
+					//utils.ZLog.Debugf("SADD key[%s] res:%d", redisCmdData.key, res)
 					if err != nil {
 						redisCmdData.replyChan <- &RedisResultS{Ok: false, Result: err}
 					} else {
@@ -289,7 +289,7 @@ L:
 					}
 				case REDIS_SREM:
 					res, err := rm.redisCmdable.SRem(redisCmdData.key, redisCmdData.args...).Result()
-					utils.ZLog.Debugf("SREM key[%s] res:%d", redisCmdData.key, res)
+					//utils.ZLog.Debugf("SREM key[%s] res:%d", redisCmdData.key, res)
 					if err != nil {
 						redisCmdData.replyChan <- &RedisResultS{Ok: false, Result: err}
 					} else {
@@ -297,7 +297,7 @@ L:
 					}
 				case REDIS_SISMEMBER:
 					res, err := rm.redisCmdable.SIsMember(redisCmdData.key, redisCmdData.value).Result()
-					utils.ZLog.Debugf("SISMEMBER key[%s] res:%v", redisCmdData.key, res)
+					//utils.ZLog.Debugf("SISMEMBER key[%s] res:%v", redisCmdData.key, res)
 					if err != nil {
 						redisCmdData.replyChan <- &RedisResultS{Ok: false, Result: err}
 					} else {
