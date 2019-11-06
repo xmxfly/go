@@ -862,3 +862,18 @@ func (rm *RedisMgr) SIsMember(key string, member interface{}) (bool, error) {
 
 	return false, err
 }
+
+func (rm *RedisMgr) KeysPattern(pattern string)([]string,error){
+	searchRes := rm.redisCmdable.Keys(pattern)
+	err := searchRes.Err()
+	if(err!=nil){
+		return nil,err
+	}else{
+		keys, keyerr := searchRes.Result()
+		if keyerr == nil {
+			return keys,nil
+		}
+		err = keyerr
+	}
+	return nil,err
+}
