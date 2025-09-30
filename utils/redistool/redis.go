@@ -863,17 +863,45 @@ func (rm *RedisMgr) SIsMember(key string, member interface{}) (bool, error) {
 	return false, err
 }
 
-func (rm *RedisMgr) KeysPattern(pattern string)([]string,error){
+func (rm *RedisMgr) KeysPattern(pattern string) ([]string, error) {
 	searchRes := rm.redisCmdable.Keys(pattern)
 	err := searchRes.Err()
-	if(err!=nil){
-		return nil,err
-	}else{
+	if err != nil {
+		return nil, err
+	} else {
 		keys, keyerr := searchRes.Result()
 		if keyerr == nil {
-			return keys,nil
+			return keys, nil
 		}
 		err = keyerr
 	}
-	return nil,err
+	return nil, err
+}
+
+func (rm *RedisMgr) ScanPattern(pattern string) ([]string, error) {
+	var cursor uint64
+	var list []string
+	var reterror error
+	for {
+		scancmd := rm.redisCmdable.Scan(cursor, pattern, 500)
+		keys, nextCursor, err := scancmd.Result()
+		if err != nil {
+			reterror = err
+			break
+		}
+		// 3. 更新游标
+		cursor = nextCursor
+		if len(keys) > 0 {
+			list = append(list, keys...)
+		}
+		fmt.Println("redis", ">>>>>>>>>", "ScanPattern:", cursor, time.Now().Unix())
+		// 4. 游标为0表示迭代结束
+		if cursor == 0 {
+			break
+		}
+	}
+	if len(list) > 0 {
+		reterror = nil
+	}
+	return list, reterror
 }
