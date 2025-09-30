@@ -48,6 +48,6 @@ func GetLocationFor(u *User) (*Location,error){
 */
 
 func StrError(err error) string {
-	e := merr.WrapErr(err)
+	e := merr.WrapDefaultCode(err)
 	return fmt.Sprintf("err: %s\nreason: %s\ncall stack: %s\n", e.Error(), e.RawErr(), e.CallStack())
 }
